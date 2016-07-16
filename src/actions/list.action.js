@@ -9,3 +9,12 @@ export function addNewItem(text) {
         })
     }
 }
+
+export function removeItem(index) {
+    return (dispatch) => {
+        dispatch({
+            type : REMOVE_FROM_LIST,
+            index
+        })
+    }
+}
