@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getESPStatus } from '../actions/ESP.action.js';
+import { getESPStatus , ESPChangeEvnetStartTime} from '../actions/ESP.action.js';
 import InputOption from './InputOption.js'
 import OnOff from './OnOff.js'
 
@@ -9,18 +9,21 @@ export const Events = React.createClass({
         this.props.getESPStatus(this.props.ip);
     },
 
+    startTimeChange: function (e, eventId) {
+        // update state 
+        this.props.ESPChangeEvnetStartTime(eventId ,e.target.value);
+    },
+
     render : function() {
         const { esp } = this.props;
         let result = [];
 
-//                              
-        
          esp.Events.forEach((item, index) => {
             result.push(<tr key={'eventtablerow-' + index}>
                             <td> {item.id} </td>
                             <td><OnOff isActive={item.Active} eventId={index}>></OnOff></td>
                             <td><InputOption selectedInput={item.input} eventId={index}></InputOption></td>
-                            <td>{item.Start}</td>
+                            <td><input data-type="time" className="cellstart" type="time" value={item.Start} onChange={(e) => this.startTimeChange(e, index)}/></td>
                             <td>{item.End}</td>
                             <td>{item.Interval}</td>
                         </tr>
@@ -56,10 +59,9 @@ function mapStateToProps(state) {
         
     }
 }
-// function mapStateToActions() {
-//     return {
-//         remove: removeItem,
-//     }
-// }
 
-export default connect(mapStateToProps, {getESPStatus})(Events);
+export default connect(mapStateToProps, 
+    {
+        getESPStatus,
+        ESPChangeEvnetStartTime
+    })(Events);

@@ -5,6 +5,8 @@ import {
     ESP_GOT_STATUS,
     ESP_EVENT_CHANGE_INPUT,
     ESP_EVENT_CHANGE_ACTIVE,
+    ESP_EVENT_CHANGE_START_TIME,
+    ESP_EVENT_CHANGE_END_TIME,
     REQUEST_SERVER_DATA
 } from '../actions/ESP.action.js';
 
@@ -41,6 +43,25 @@ export function espReducer(state = default_state, action) {
                 Events : new_events
             } 
         }
+        case ESP_EVENT_CHANGE_START_TIME:
+        {
+            let new_events = [...state.Events];
+            new_events[action.eventId].Start = action.startTime;
+            return {
+                ...state,
+                Events : new_events
+            } 
+        }
+        case ESP_EVENT_CHANGE_END_TIME:
+        {
+            let new_events = [...state.Events];
+            new_events[action.eventId].End = action.endTimer;
+            return {
+                ...state,
+                Events : new_events
+            } 
+        }
+        
 
         // case REQUEST_SERVER_DATA:
         // {
