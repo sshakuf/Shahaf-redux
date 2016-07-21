@@ -4,3 +4,12 @@
     list-style: none;
     font-size: 120%;
 }
+
+.EventsTable {
+    width: 100%;
+    table-layout: fixed;
+    /*background-color: grey;*/
+}
+.EventsTable th {
+    text-align: center;
+}

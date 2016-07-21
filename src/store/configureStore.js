@@ -1,7 +1,12 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import { reducer, default_state } from '../reducers/index.reducer.js';
+import { rootReducer as app_reducer, default_state as app_state } from '../reducers/index.reducer.js';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
+
+
+export const default_state = {   
+    ...app_state
+};
 
 const finalCreateStore = compose(
     applyMiddleware(thunk),
@@ -18,7 +23,7 @@ export default function configureStore(initialState) {
     };
 
     const rootReducer = combineReducers({
-        app : reducer
+        app : app_reducer
     });
 
     return finalCreateStore(rootReducer, initialState);
