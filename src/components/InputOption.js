@@ -8,14 +8,14 @@ export const InputOption = React.createClass({
         // // get the new selectedInput
         let inputName = e.target.value;
         let inputNum = -1;
-        for (var index =0; index < this.props.esp.PortsInfo.length ; index++) {
-            if (this.props.esp.PortsInfo[index].Name == inputName)
+        for (var index =0; index < this.props.esp.espDevice.PortsInfo.length ; index++) {
+            if (this.props.esp.espDevice.PortsInfo[index].Name == inputName)
             {
                 inputNum = index;
                 break; 
             }
 
-        }
+        } 
         
         this.props.ESPChangeEvnetInput(this.props.eventId, inputNum);
 
@@ -24,7 +24,7 @@ export const InputOption = React.createClass({
     render : function() {
 
         var eventId = this.props.eventId;
-        var results = this.props.esp.PortsInfo.map(function (item, index){
+        var results = this.props.esp.espDevice.PortsInfo.map(function (item, index){
             return <option  key={'inputoption'+eventId+item.Name} 
                             value={item.Name }
                             >
@@ -32,7 +32,7 @@ export const InputOption = React.createClass({
                             </option>;
         });
         
-        return  <select value={this.props.esp.PortsInfo[this.props.selectedInput].Name}
+        return  <select value={this.props.esp.espDevice.PortsInfo[this.props.selectedInput].Name}
                         ref={'selectInput' + eventId}
                         onChange={this.changeInput}>
                     {results}

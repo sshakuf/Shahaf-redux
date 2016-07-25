@@ -14,12 +14,20 @@ export function getESPStatus(ip) {
             type: REQUEST_SERVER_DATA
         });
 
-        let p = fetch(ip+"/status").then((data) => {            
-            dispatch({
-                type: ESP_GOT_STATUS,
-                data
-            })
+        // let p = fetch(ip+"/events").then( function (data) {       
+        let p = fetch(ip+"/status").then(function (response) {
+            return response.json();
         })
+        .then(function (result) {
+                dispatch({
+                type: ESP_GOT_STATUS,
+                data : result
+            })
+
+        })
+        .catch (function (error) {
+            console.log('Request failed', error);
+        });      
     }
 }
 
