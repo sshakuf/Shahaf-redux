@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { getESPStatus , ESPChangeEvnetStartTime} from '../actions/ESP.action.js';
 import InputOption from './InputOption.js'
 import OnOff from './OnOff.js'
-import TimePicker from './TimePicker.js'
+import ESPTimePicker from './TimePicker.js'
+import TimePicker from 'material-ui/TimePicker';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 function parseTime(timeString)
@@ -41,20 +43,21 @@ export const Events = React.createClass({
         let startTime = parseTime(item.Start);
         let endTime = parseTime(item.End);
 
+    // <td><TimePicker hour={startTime.getHours()} eventId={index} minute={startTime.getMinutes()} value={item.Start} onChange={this.startTimeChange}></TimePicker></td> 
              
             result.push(<tr key={'eventtablerow-' + index}>
                             <td> {item.id} </td>
-                            <td><OnOff isActive={item.Active} eventId={index}>></OnOff></td>
+                            <td ><OnOff isActive={item.Active} eventId={index}>></OnOff></td>
                             <td><InputOption selectedInput={item.input} eventId={index}></InputOption></td>
-                            <td><TimePicker hour={startTime.getHours()} eventId={index} minute={startTime.getMinutes()} value={item.Start} onChange={this.startTimeChange}></TimePicker></td> 
-                            <td><TimePicker hour={endTime.getHours()} eventId={index} minute={endTime.getMinutes()} value={item.End} onChange={this.endTimeChange}></TimePicker></td> 
+                            <td><ESPTimePicker key={'startTime'+ index} eventId={index} value={startTime}  onChange={this.startTimeChange}/></td>
+                            <td><ESPTimePicker key={'endTime'+ index} eventId={index} value={endTime}  onChange={this.endTimeChange}/></td>
                             <td>{item.Interval}</td>
                         </tr> 
                     );
             }
         );
-        return  <div className="table-responsive">
-                <button ref="RefreshButton" onClick={this.getESPStatus}>Refresh</button>
+        return  <div className="table-responsive">  
+                <RaisedButton label="refresh" onClick={this.getESPStatus}/>
                 <table className="table">
                     <thead>
                     <tr>
@@ -70,7 +73,6 @@ export const Events = React.createClass({
                     {result}
                     </tbody>
                     </table>
-                    <TimePicker></TimePicker> 
                     </div>;
     }
 });

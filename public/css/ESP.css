@@ -47,13 +47,12 @@ td {
 }
 .cellstart {
     width: 84px;
-    color: black;
     padding-right: 2px;
     padding-left: 2px;
       line-height: 1em;
 }
 .cellend {
-    width: 180px;
+    width: 84px;
     padding-right: 2px;
     padding-left: 2px;
 }
