@@ -1,17 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ESPChangeEvnetInput } from '../actions/ESP.action.js';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
 
 export const InputOption = React.createClass({
-     changeInput : function(e) {
+     changeInput : function(event, index, value)  {
          
         // // get the new selectedInput
-        let inputName = e.target.value;
+        let inputName = value;
         let inputNum = -1;
-        for (var index =0; index < this.props.esp.espDevice.PortsInfo.length ; index++) {
-            if (this.props.esp.espDevice.PortsInfo[index].Name == inputName)
+        for (var i =0; i < this.props.esp.espDevice.PortsInfo.length ; i++) {
+            if (this.props.esp.espDevice.PortsInfo[i].Name == inputName)
             {
-                inputNum = index;
+                inputNum = i;
                 break; 
             }
 
@@ -25,18 +28,17 @@ export const InputOption = React.createClass({
 
         var eventId = this.props.eventId;
         var results = this.props.esp.espDevice.PortsInfo.map(function (item, index){
-            return <option  key={'inputoption'+eventId+item.Name} 
+            return <MenuItem  key={'inputoption'+eventId+item.Name} 
                             value={item.Name }
-                            >
-                                {item.Name}
-                            </option>;
+                            primaryText={item.Name}/>
         });
         
-        return  <select value={this.props.esp.espDevice.PortsInfo[this.props.selectedInput].Name}
+        return  <SelectField  
+                        value={this.props.esp.espDevice.PortsInfo[this.props.selectedInput].Name}
                         ref={'selectInput' + eventId}
                         onChange={this.changeInput}>
                     {results}
-                </select>;
+                </SelectField>;
     }
 }); 
 
