@@ -30,13 +30,13 @@ td {
 }
 
 .cellid {
-    width: 19px;
+    width: 10px;
     padding-left: 2px;
     padding-right: 2px;
 }
 
 .cellactive {
-    width: 84px;
+    width: 105px;
     padding-right: 2px;
     padding-left: 2px;
 }

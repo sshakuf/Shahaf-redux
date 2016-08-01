@@ -5,6 +5,7 @@ export const ESP_EVENT_CHANGE_INPUT = 'ESP event change input'
 export const ESP_EVENT_CHANGE_START_TIME = 'ESP event change start time'
 export const ESP_EVENT_CHANGE_END_TIME = 'ESP event change end time'
 export const ESP_EVENT_CHANGE_ACTIVE = 'ESP_EVENT_CHANGE_ACTIVE'
+export const ESP_SEND_EVENTS_TO_ESP = 'ESP_SEND_EVENTS_TO_ESP'
 
 
 export function getESPStatus(ip) {
@@ -52,21 +53,49 @@ export function ESPChangeEvnetActive(eventId, isOn){
     }
 }
 
-export function ESPChangeEvnetStartTime(eventId, time){
+export function ESPChangeEventStartTime(eventId, time){
     return (dispatch) => {
       dispatch({
             type: ESP_EVENT_CHANGE_START_TIME,
-            startTime: time,
+            time: time,
             eventId: eventId
         });   
     }
 }
-export function ESPChangeEvnetEndTime(eventId, time){
+
+export function ESPChangeEventEndTime(eventId, time){ 
     return (dispatch) => {
       dispatch({
             type: ESP_EVENT_CHANGE_END_TIME,
-            startTime: time,
+            time: time,
             eventId: eventId
+        });   
+    }
+}
+
+export function ESPSendEventsToESP(ip, events){
+
+    events.forEach((item, index) => {
+        let eventurl = "/event/" + item.id + "/" + item.Active + "/" + item.input + "/" + item.Start + "/" + item.End +"/" + item.Interval;  
+        let p = fetch(ip+eventurl).then(function (response) {
+            return response.json();
+        })
+        .then(function (result) {
+                dispatch({
+                type: ESP_GOT_STATUS,
+                data : result
+            })
+
+        })
+        .catch (function (error) {
+            console.log('Request failed', error);
+        });      
+
+    });
+    
+    return (dispatch) => {
+      dispatch({
+            type: ESP_SEND_EVENTS_TO_ESP,
         });   
     }
 }

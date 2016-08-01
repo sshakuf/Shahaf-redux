@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getESPStatus , ESPChangeEvnetStartTime} from '../actions/ESP.action.js';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { getESPStatus , ESPChangeEventStartTime, ESPChangeEventEndTime, ESPSendEventsToESP} from '../actions/ESP.action.js';
 import InputOption from './InputOption.js'
 import OnOff from './OnOff.js'
 import ESPTimePicker from './TimePicker.js'
@@ -19,6 +20,13 @@ function parseTime(timeString)
     return d;
 }
 
+function formatTime(date) {
+        var hours = date.getHours();
+        hours = hours < 10 ? "0" + hours : hours;
+        var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        return hours + ":" + minutes ;
+}
+
 export const Events = React.createClass({
      getESPStatus : function() {
         this.props.getESPStatus(this.props.ip);
@@ -26,11 +34,17 @@ export const Events = React.createClass({
 
     startTimeChange: function (e, eventId) { 
         // update state 
-        this.props.ESPChangeEvnetStartTime(e.eventId ,e.value);
+        this.props.ESPChangeEventStartTime(e.eventId ,formatTime(e.value));
     },
 
     endTimeChange: function (e) {
-        this.props.ESPChangeEvnetStartTime(e.eventId ,e.value);
+        this.props.ESPChangeEventEndTime(e.eventId ,formatTime(e.value));
+    },
+
+
+    sendEventsToESP: function (e)
+    {
+        this.props.ESPSendEventsToESP(this.props.ip, this.props.esp.Events);
     },
 
     render : function() { 
@@ -45,35 +59,32 @@ export const Events = React.createClass({
 
     // <td><TimePicker hour={startTime.getHours()} eventId={index} minute={startTime.getMinutes()} value={item.Start} onChange={this.startTimeChange}></TimePicker></td> 
              
-            result.push(<tr key={'eventtablerow-' + index}>
-                            <td> {item.id} </td>
-                            <td ><OnOff isActive={item.Active} eventId={index}>></OnOff></td>
-                            <td><InputOption selectedInput={item.input} eventId={index}></InputOption></td>
-                            <td><ESPTimePicker key={'startTime'+ index} eventId={index} value={startTime}  onChange={this.startTimeChange}/></td>
-                            <td><ESPTimePicker key={'endTime'+ index} eventId={index} value={endTime}  onChange={this.endTimeChange}/></td>
-                            <td>{item.Interval}</td>
-                        </tr> 
+            result.push(<div className='row' displayRowCheckbox={false}>
+                            <div className='col-xs-1 text-center'> {item.id} </div>
+                            <div className='col-xs-1'><OnOff isActive={item.Active} eventId={index}>></OnOff></div>
+                            <div className='col-xs-2 text-center'><InputOption selectedInput={item.input} eventId={index}></InputOption></div>
+                            <div className='col-xs-2 text-center'><ESPTimePicker key={'startTime'+ index} eventId={index} value={startTime}  onChange={this.startTimeChange}/></div>
+                            <div className='col-xs-2 text-center'><ESPTimePicker key={'endTime'+ index} eventId={index} value={endTime}  onChange={this.endTimeChange}/></div>
+                        </div>
                     );
             }
         );
         return  <div className="table-responsive">  
-                <RaisedButton label="refresh" onClick={this.getESPStatus}/>
-                <table className="table">
-                    <thead>
-                    <tr>
-                        <th className="cellid">Id</th>
-                        <th className="cellactive">Active</th>
-                        <th className="cellport">Port</th>
-                        <th className="cellstart">Start</th>
-                        <th className="cellend">End</th>
-                        <th >interval Days</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {result}
-                    </tbody>
-                    </table>
-                    </div>;
+                    <RaisedButton label="refresh" onClick={this.getESPStatus}/>
+                    <RaisedButton label="Update" onClick={this.sendEventsToESP}/>
+                    <div className="container-fluid  table">
+                        <div className="row">
+                            <div className='col-xs-1 text-center'>ID</div>
+                            <div className='col-xs-1 text-center'>Active</div>
+                            <div className='col-xs-2 text-center'>Port</div>
+                            <div className='col-xs-2 text-center'>Start</div>
+                            <div className='col-xs-2 text-center'>End</div>
+                        </div>
+                        
+                            {result}
+                        
+                    </div>
+                </div>;
     }
 });
 
@@ -90,5 +101,7 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, 
     {
         getESPStatus,
-        ESPChangeEvnetStartTime
+        ESPChangeEventStartTime,
+        ESPChangeEventEndTime,
+        ESPSendEventsToESP
     })(Events);

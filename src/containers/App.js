@@ -11,8 +11,10 @@ export const App = React.createClass({
     render : function() {
         return  <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <section className='app-containers'>
-                    <Events />
-                    {this.props.children}
+            <div className="container-fluid">
+                <Events />
+                {this.props.children}
+            </div>
                 </section>
                 </MuiThemeProvider>;
     }

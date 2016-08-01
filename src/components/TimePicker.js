@@ -12,6 +12,7 @@ export const  ESPTimePicker =  React.createClass ( {
 
   handleChangeTimePicker24 : function (event, date) {
     this.setState({value24: date});
+    this.props.onChange({eventId :this.props.eventId, value:date}, event)
   },
 
   render() {
@@ -21,7 +22,7 @@ export const  ESPTimePicker =  React.createClass ( {
           format="24hr"
           hintText="24hr Format"
           width='10px'
-          value={this.state.value24}
+          value={this.props.value}
           onChange={this.handleChangeTimePicker24}
         />
       </div>
