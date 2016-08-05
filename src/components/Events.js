@@ -6,7 +6,7 @@ import InputOption from './InputOption.js'
 import OnOff from './OnOff.js'
 import ESPTimePicker from './TimePicker.js'
 import TimePicker from 'material-ui/TimePicker';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
 
 function parseTime(timeString)
@@ -28,6 +28,11 @@ function formatTime(date) {
 }
 
 export const Events = React.createClass({
+
+    componentDidMount: function(){
+        this.getESPStatus();       
+    },
+
      getESPStatus : function() {
         this.props.getESPStatus(this.props.ip);
     },
@@ -69,10 +74,13 @@ export const Events = React.createClass({
                     );
             }
         );
-        return  <div className="table-responsive">  
-                    <RaisedButton label="refresh" onClick={this.getESPStatus}/>
-                    <RaisedButton label="Update" onClick={this.sendEventsToESP}/>
+        return  <div className="table-responsive">
+                    
                     <div className="container-fluid  table">
+                    <div className="row">  
+                        <FlatButton className='col-xs-2' label="refresh" onClick={this.getESPStatus}/>
+                        <FlatButton className='col-xs-2 col-xs-offset-8' label="Update" onClick={this.sendEventsToESP} disabled={!this.props.hasChanges}/>
+                    </div>
                         <div className="row">
                             <div className='col-xs-1 text-center'>ID</div>
                             <div className='col-xs-1 text-center'>Active</div>
@@ -89,12 +97,13 @@ export const Events = React.createClass({
 });
 
 
+ 
 
-
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
         esp : state.app.esp.espDevice,
-        ip : state.app.esp.ip
+        ip : state.app.esp.ip,
+        hasChanges: state.app.esp.hasChanges,
     }
 }
 

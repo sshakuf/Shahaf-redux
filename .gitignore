@@ -3,5 +3,5 @@
 npm-debug.log*
 .sass-cache
 .idea_modules/
-public/js
+
 node_modules

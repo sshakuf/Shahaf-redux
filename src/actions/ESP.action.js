@@ -6,7 +6,7 @@ export const ESP_EVENT_CHANGE_START_TIME = 'ESP event change start time'
 export const ESP_EVENT_CHANGE_END_TIME = 'ESP event change end time'
 export const ESP_EVENT_CHANGE_ACTIVE = 'ESP_EVENT_CHANGE_ACTIVE'
 export const ESP_SEND_EVENTS_TO_ESP = 'ESP_SEND_EVENTS_TO_ESP'
-
+export const ESP_SET_IP = 'ESP_SET_IP'
 
 export function getESPStatus(ip) {
     return (dispatch) => {
@@ -101,5 +101,12 @@ export function ESPSendEventsToESP(ip, events){
 }
 
 
-
+export function ESPSetIp(ip){ 
+    return (dispatch) => {
+      dispatch({
+            type: ESP_SET_IP,
+            ip: ip
+        });   
+    }
+}
 
