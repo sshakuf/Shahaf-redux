@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import App from './App.js';
 import List from '../components/List.js';
 import Events from '../components/Events.js';
+import ESPPortPanel from '../components/ESPPortPanel.js';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 
 
@@ -17,6 +18,7 @@ const Root = React.createClass({
                     <IndexRoute component={Events}/>
                     <Route path='/' component={Events}/>
                     <Route path='/list' component={List}/>
+                    <Route path='/Ports' component={ESPPortPanel}/>
                 </Route>
             </Router>
         </Provider>;

@@ -29,15 +29,12 @@ function formatTime(date) {
 
 export const Events = React.createClass({
 
-    componentDidMount: function(){
-        this.getESPStatus();       
-    },
 
      getESPStatus : function() {
         this.props.getESPStatus(this.props.ip);
     },
 
-    startTimeChange: function (e, eventId) { 
+    startTimeChange: function (e) { 
         // update state 
         this.props.ESPChangeEventStartTime(e.eventId ,formatTime(e.value));
     },

@@ -7,10 +7,9 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
 
-import { ESPSetIp} from '../actions/ESP.action.js';
+import { ESPSetIp, getESPStatus} from '../actions/ESP.action.js';
+
 
 
 export const App = React.createClass({
@@ -25,9 +24,13 @@ export const App = React.createClass({
             }
         }
 
+        this.props.getESPStatus();       
         return {};
     },
 
+
+    componentDidMount: function(){
+    },
 
 
     render : function() {
@@ -49,5 +52,5 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps, {ESPSetIp})(App);
+export default connect(mapStateToProps, {ESPSetIp, getESPStatus})(App);
 
