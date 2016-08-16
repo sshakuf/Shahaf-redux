@@ -62,32 +62,31 @@ export const Events = React.createClass({
     // <td><TimePicker hour={startTime.getHours()} eventId={index} minute={startTime.getMinutes()} value={item.Start} onChange={this.startTimeChange}></TimePicker></td> 
              
             result.push(<div className='row' displayRowCheckbox={false}>
-                            <div className='col-xs-1 text-center'> {item.id} </div>
-                            <div className='col-xs-1'><OnOff isActive={item.Active} eventId={index}>></OnOff></div>
-                            <div className='col-xs-2 text-center'><InputOption selectedInput={item.input} eventId={index}></InputOption></div>
-                            <div className='col-xs-2 text-center'><ESPTimePicker key={'startTime'+ index} eventId={index} value={startTime}  onChange={this.startTimeChange}/></div>
-                            <div className='col-xs-2 text-center'><ESPTimePicker key={'endTime'+ index} eventId={index} value={endTime}  onChange={this.endTimeChange}/></div>
+                            <div className='col-md-1 text-center'> {item.id} </div>
+                            <div className='col-md-1'><OnOff isActive={item.Active} eventId={index}>></OnOff></div>
+                            <div className='col-md-2 text-center'><InputOption selectedInput={item.input} eventId={index}></InputOption></div>
+                            <div className='col-md-2 text-center'><ESPTimePicker key={'startTime'+ index} eventId={index} value={startTime}  onChange={this.startTimeChange}/></div>
+                            <div className='col-md-2 text-center'><ESPTimePicker key={'endTime'+ index} eventId={index} value={endTime}  onChange={this.endTimeChange}/></div>
                         </div>
                     );
             }
+           
         );
         return  <div className="table-responsive">
                     
                     <div className="container-fluid  table">
                     <div className="row">  
-                        <FlatButton className='col-xs-2' label="refresh" onClick={this.getESPStatus}/>
-                        <FlatButton className='col-xs-2 col-xs-offset-8' label="Update" onClick={this.sendEventsToESP} disabled={!this.props.hasChanges}/>
+                        <FlatButton className='col-md-2' label="refresh" onClick={this.getESPStatus}/>
+                        <FlatButton className='col-md-2 col-md-offset-8' label="Update" onClick={this.sendEventsToESP} disabled={!this.props.hasChanges}/>
                     </div>
                         <div className="row">
-                            <div className='col-xs-1 text-center'>ID</div>
-                            <div className='col-xs-1 text-center'>Active</div>
-                            <div className='col-xs-2 text-center'>Port</div>
-                            <div className='col-xs-2 text-center'>Start</div>
-                            <div className='col-xs-2 text-center'>End</div>
+                            <div className='col-md-1 text-center'>ID</div>
+                            <div className='col-md-1 text-center'>Active</div>
+                            <div className='col-md-2 text-center'>Port</div>
+                            <div className='col-md-2 text-center'>Start</div>
+                            <div className='col-md-2 text-center'>End</div>
                         </div>
-                        
                             {result}
-                        
                     </div>
                 </div>;
     }

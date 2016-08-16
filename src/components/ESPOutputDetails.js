@@ -2,10 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import { getESPStatus , ESPSetOutputPortData} from '../actions/ESP.action.js';
-import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import OnOff from './OnOff.js'
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
 
 const styles = {
   root: {
@@ -22,7 +21,7 @@ const styles = {
 
 };
 
-export const ESPPortPanel = React.createClass({
+export const ESPOutputDetails = React.createClass({
 
     getClass : function(val)
     {
@@ -41,26 +40,12 @@ export const ESPPortPanel = React.createClass({
     render : function() {
          
         const { esp } = this.props; 
-        return  <div style={styles.root}>
-                    <GridList
-                    cols={3}
-                    cellHeight={100}
-                    padding={4}
-                    style={styles.gridList}
-                    >
+        return  <Paper zDepth={2}>
                     {esp.PortsInfo.map((tile, index) => (
-                        <GridTile
-                        key={tile.Name}
-                        title={tile.Name}
-                        titlePosition="top"
-                        titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-                        >
-                        <div className={this.getClass(tile.value)} onClick={this.SetESPPinOutput.bind(this, {index:index, value:tile.value})}>
-                        </div>
-                        </GridTile>
+                        <TextField hintText={tile.Name} style={style} underlineShow={false} />
+                        <Divider />
                     ))}
-                    </GridList>
-                </div>;
+                    </Paper>;
     }
 });
 
@@ -77,6 +62,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps, 
     {
-        getESPStatus,
         ESPSetOutputPortData,
-    })(ESPPortPanel);
+    })(ESPOutputDetails);

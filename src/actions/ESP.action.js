@@ -16,6 +16,10 @@ export function getESPStatus(ip) {
             type: REQUEST_SERVER_DATA
         });
 
+        if (!ip.startsWith('http'))
+        {
+            ip = 'http://' + ip;
+        }
         // let p = fetch(ip+"/events").then( function (data) {       
         let p = fetch(ip+"/status").then(function (response) {
             return response.json();
@@ -34,7 +38,7 @@ export function getESPStatus(ip) {
 }
 
 
-export function ESPChangeEvnetInput(eventId, inputNum){
+export function ESPChangeEventInput(eventId, inputNum){
     return (dispatch) => {
       dispatch({
             type: ESP_EVENT_CHANGE_INPUT,

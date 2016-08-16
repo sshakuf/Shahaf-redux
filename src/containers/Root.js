@@ -6,7 +6,6 @@ import Events from '../components/Events.js';
 import ESPPortPanel from '../components/ESPPortPanel.js';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 
-
 const Root = React.createClass({
     render: function() {
         const { store } = this.props;

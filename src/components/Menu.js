@@ -2,28 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
+import RaisedButton from 'material-ui/RaisedButton';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import { push } from 'react-router-redux';
 
-export const Menu = React.createClass({
+export const MenuESP = React.createClass({
 
     getInitialState: function(){
         return {open: false};
     } ,
 
-    handleToggle : function () {
-        this.setState({open: !this.state.open})
-    },
 
     handleMenuItem: function(i){
         switch (i) {
             case 0:
                     // this.props.dispatch(push('/ports'));
-                    window.location.replace(  window.location.pathname + window.location.search + '#/ports');
+                    window.location.replace(  window.location.pathname + window.location.search + '#/ports?ip=' + this.props.app.esp.ip + "&");
                 break;
             case 1:
                     // this.props.dispatch(push('/'));
-                    window.location.replace(  window.location.pathname + window.location.search + '#/');
+                    window.location.replace(  window.location.pathname + window.location.search + '#/?ip=' + this.props.app.esp.ip+"&");
                 break;
         
             default:
@@ -33,18 +33,38 @@ export const Menu = React.createClass({
         
     },
 
+    handleTouchTap : function (event)  {
+        // This prevents ghost click.
+        event.preventDefault();
+
+        this.setState({ open: true, anchorEl: event.currentTarget });
+    },
+
+    handleRequestClose : function ()  {
+        this.setState({ open: false });
+    },
 
     render : function() {
-        return  <AppBar
+        return  <div>
+      <div>
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          onRequestClose={this.handleRequestClose}
+        >
+          <Menu>
+            <MenuItem onTouchTap={this.handleMenuItem.bind(this,0)} primaryText='Outputs'></MenuItem>
+            <MenuItem onTouchTap={this.handleMenuItem.bind(this,1)} primaryText='Events'></MenuItem>
+          </Menu>
+        </Popover>
+      </div>
+<AppBar
     title="Home Controller"
-    iconClassNameRight="muidocs-icon-navigation-expand-more" onLeftIconButtonTouchTap={this.handleToggle}>
-        <Drawer open={this.state.open}>
-          <MenuItem onTouchTap={this.handleMenuItem.bind(this,0)}>Outputs</MenuItem>
-          <MenuItem onTouchTap={this.handleMenuItem.bind(this,1)}>Events</MenuItem>
-        </Drawer>
-        <a href="#/">Edit contact</a>;
-        
+    iconClassNameRight="muidocs-icon-navigation-expand-more" onLeftIconButtonTouchTap={this.handleTouchTap}>
         </AppBar>  
+        </div>
     }
 });
 
@@ -54,4 +74,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(Menu);
+export default connect(mapStateToProps)(MenuESP);
