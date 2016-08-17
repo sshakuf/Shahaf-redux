@@ -9,6 +9,28 @@ body {
   color: white;
 }
 
+.timerPicker{
+    background-color: rgba(0,36,0,1);
+    
+}
+
+.onoffHeight{
+    height: 150px;
+    line-height: 150px;
+}
+
+.eventRow {
+    /*border-bottom-style: solid;*/
+    padding-bottom: 15px;
+    
+}
+.eventHeader{
+    background-color: rgba(0,36,0,1);
+}
+.eventSwitch{
+    align-items: center; /* align vertical */
+    line-height: 150px;
+}
 
   .switchOn {
 background: rgb(180,221,180);

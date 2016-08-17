@@ -9,7 +9,7 @@ export const OnOff = React.createClass({
 
     render : function() {
         
-        return  <div className="onoffswitch">
+        return  <div className="onoffswitch eventSwitch">
                     <input type="checkbox" name="onoffswitch"  
                         checked={this.props.isActive == '1'} 
                         className="onoffswitch-checkbox" 

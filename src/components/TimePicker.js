@@ -24,6 +24,7 @@ export const  ESPTimePicker =  React.createClass ( {
           width='10px'
           value={this.props.value}
           onChange={this.handleChangeTimePicker24}
+          className="timerPicker"
         />
       </div>
     );

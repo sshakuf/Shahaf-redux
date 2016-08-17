@@ -8,6 +8,7 @@ export const ESP_EVENT_CHANGE_ACTIVE = 'ESP_EVENT_CHANGE_ACTIVE';
 export const ESP_SEND_EVENTS_TO_ESP = 'ESP_SEND_EVENTS_TO_ESP';
 export const ESP_SET_IP = 'ESP_SET_IP';
 export const ESP_SET_OUTPUT_PORT_VALUE = 'ESP_SET_OUTPUT_PORT_VALUE';
+import 'whatwg-fetch';
 
 export function getESPStatus(ip) {
     return (dispatch) => {

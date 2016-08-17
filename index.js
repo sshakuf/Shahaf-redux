@@ -5,7 +5,8 @@ import configureStore from './src/store/configureStore.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { syncHistoryWithStore } from 'react-router-redux'
 import { hashHistory } from 'react-router'
-
+// import 'bootstrap';
+// import 'bootstrap/dist/js/bootstrap.min.js';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941

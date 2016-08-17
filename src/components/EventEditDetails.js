@@ -27,7 +27,7 @@ function formatTime(date) {
         return hours + ":" + minutes ;
 }
 
-export const Events = React.createClass({
+export const EventEditDetails = React.createClass({
 
 
      getESPStatus : function() {
@@ -61,22 +61,12 @@ export const Events = React.createClass({
 
     // <td><TimePicker hour={startTime.getHours()} eventId={index} minute={startTime.getMinutes()} value={item.Start} onChange={this.startTimeChange}></TimePicker></td> 
              
-            result.push(<div className='row' >
-                            <div className='col-xs-3  onoffHeight'><OnOff isActive={item.Active} eventId={index}>></OnOff></div>
-                            <div className='col-xs-8 container eventRow'>
-                                <div className='row '>
-                                    <div className='col-xs-4 text-center'>output:</div>
-                                    <div className='col-xs-8 text-left'><InputOption selectedInput={item.input} eventId={index}></InputOption></div>
-                                </div>
-                                <div className='row'>                                
-                                    <div className='col-xs-4 text-center'>Start Time:</div>
-                                    <div className='col-xs-8 text-center'><ESPTimePicker key={'startTime'+ index} eventId={index} value={startTime}  onChange={this.startTimeChange}/></div>
-                                </div>
-                                <div className='row '>
-                                    <div className='col-xs-4 text-center'>End Time:</div>
-                                    <div className='col-xs-8 text-center'><ESPTimePicker key={'endTime'+ index} eventId={index} value={endTime}  onChange={this.endTimeChange}/></div>
-                                </div>
-                            </div>
+            result.push(<div className='row' displayRowCheckbox={false}>
+                            <div className='col-md-1 text-center'> {item.id} </div>
+                            <div className='col-md-1'><OnOff isActive={item.Active} eventId={index}>></OnOff></div>
+                            <div className='col-md-2 text-center'><InputOption selectedInput={item.input} eventId={index}></InputOption></div>
+                            <div className='col-md-2 text-center'><ESPTimePicker key={'startTime'+ index} eventId={index} value={startTime}  onChange={this.startTimeChange}/></div>
+                            <div className='col-md-2 text-center'><ESPTimePicker key={'endTime'+ index} eventId={index} value={endTime}  onChange={this.endTimeChange}/></div>
                         </div>
                     );
             }
@@ -86,10 +76,16 @@ export const Events = React.createClass({
                     
                     <div className="container  table">
                     <div className="row">  
-                        <FlatButton className='col-xs-2' label="refresh" onClick={this.getESPStatus}/>
-                        <div className='col-xs-6' />
-                        <FlatButton className='col-xs-2 ' label="Update" onClick={this.sendEventsToESP} disabled={!this.props.hasChanges}/>
+                        <FlatButton className='col-md-8' label="refresh" onClick={this.getESPStatus}/>
+                        <FlatButton className='col-md-2 col-md-offset-8' label="Update" onClick={this.sendEventsToESP} disabled={!this.props.hasChanges}/>
                     </div>
+                        <div className="row">
+                            <div className='col-md-1 text-center'>ID</div>
+                            <div className='col-md-1 text-center'>Active</div>
+                            <div className='col-md-2 text-center'>Port</div>
+                            <div className='col-md-2 text-center'>Start</div>
+                            <div className='col-md-2 text-center'>End</div>
+                        </div>
                             {result}
                     </div>
                 </div>;
@@ -113,4 +109,4 @@ export default connect(mapStateToProps,
         ESPChangeEventStartTime,
         ESPChangeEventEndTime,
         ESPSendEventsToESP
-    })(Events);
+    })(EventEditDetails);

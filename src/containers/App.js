@@ -42,7 +42,7 @@ export const App = React.createClass({
                 {this.props.children}
             </div>
                 </section>
-                </MuiThemeProvider>;
+                </MuiThemeProvider>; 
     }
 });
 
