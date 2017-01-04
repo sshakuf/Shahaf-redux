@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ESPChangeEvnetInput } from '../actions/ESP.action.js';
+import { ESPChangeEventInput } from '../actions/ESP.action.js';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -20,7 +20,7 @@ export const InputOption = React.createClass({
 
         } 
         
-        this.props.ESPChangeEvnetInput(this.props.eventId, inputNum);
+        this.props.ESPChangeEventInput(this.props.eventId, inputNum);
 
     },
 
@@ -52,4 +52,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {ESPChangeEvnetInput})(InputOption);
+export default connect(mapStateToProps, {ESPChangeEventInput})(InputOption);

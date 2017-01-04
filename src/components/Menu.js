@@ -25,6 +25,10 @@ export const MenuESP = React.createClass({
                     // this.props.dispatch(push('/'));
                     window.location.replace(  window.location.pathname + window.location.search + '#/?ip=' + this.props.app.esp.ip+"&");
                 break;
+            case 2:
+                    // this.props.dispatch(push('/'));
+                    window.location.replace(  window.location.pathname + window.location.search + '#/ports_name?ip=' + this.props.app.esp.ip+"&");
+                break;
         
             default:
                 break;
@@ -57,6 +61,7 @@ export const MenuESP = React.createClass({
           <Menu>
             <MenuItem onTouchTap={this.handleMenuItem.bind(this,0)} primaryText='Outputs'></MenuItem>
             <MenuItem onTouchTap={this.handleMenuItem.bind(this,1)} primaryText='Events'></MenuItem>
+            <MenuItem onTouchTap={this.handleMenuItem.bind(this,2)} primaryText='Ports Names'></MenuItem>
           </Menu>
         </Popover>
       </div>

@@ -22,7 +22,7 @@ const styles = {
 
 };
 
-export const ESPPortPanel = React.createClass({
+export const ESPPortsNamesPanel = React.createClass({
 
     getClass : function(val)
     {
@@ -55,10 +55,10 @@ export const ESPPortPanel = React.createClass({
                         titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
                         >
                         <div className={this.getClass(tile.value)+  ' divCenter'} onClick={this.SetESPPinOutput.bind(this, {index:index, value:tile.value})}>
-                        <div className='centerDiv'>
-                            <span>{tile.Name}</span>
-                            
-                        </div>
+                        <span className='centerDiv'>
+                            <span>{tile.Name}X</span>
+                            <span>Off</span>
+                        </span>
                         </div>
                         </GridTile>
                     ))}
@@ -82,4 +82,4 @@ export default connect(mapStateToProps,
     {
         getESPStatus,
         ESPSetOutputPortData,
-    })(ESPPortPanel);
+    })(ESPPortsNamesPanel);
